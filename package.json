@@ -1,0 +1,24 @@
+{
+  "name": "noswsql-play",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RajenderDandyal/nodesql-play.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RajenderDandyal/nodesql-play/issues"
+  },
+  "homepage": "https://github.com/RajenderDandyal/nodesql-play#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql2": "^1.7.0",
+    "sequelize": "^5.19.2"
+  }
+}
