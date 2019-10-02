@@ -2,9 +2,13 @@ const express = require("express");
 const sequelize = require('./utils/db');
 const app = express();
 const models = require("./models");
+const product = require('./routes/product');
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+
+app.use('/api/product', product);
 // route not found
 app.use((req, res) => {
   let responseObj = {
