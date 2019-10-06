@@ -10,15 +10,17 @@ router.post('/create-product', async (req, res)=>{
       title: req.body.title,
       price: req.body.price,
       imageURL: req.body.imageURL,
-      description: req.body.description
+      description: req.body.description,
+      userId: req.body.userId
     }
-    let book = await models.Product.create(newBook)
+    let book = await models.Product.create(newBook);
+    console.log(book)
+
     if(book){
-      console.log(book)
       res.json(book);
     }
   }catch (e) {
-    res.status(400).send({error:true, msg:"db insert error"})
+    res.status(400).send({error:true, msg:"db insert error", err: e})
   }
 })
 
@@ -38,7 +40,8 @@ router.get('/:id', async (req, res)=>{
     book = await models.Product.findAll({
       where:{
         id: id
-      }
+      },
+      include:['user']
     })
     console.log("get by id",book);
     if(!isEmpty(book)){
@@ -70,6 +73,7 @@ router.put('/update-product/:id', async (req, res)=>{
         book.price = req.body.price;
         book.imageURL = req.body.imageURL;
         book.description = req.body.description;
+        book.userId = req.body.userId;
         let updatedBook = await book.save();
         // save method return the updated object
         console.log("save return", updatedBook);

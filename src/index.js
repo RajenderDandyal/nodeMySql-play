@@ -9,6 +9,7 @@ app.use(express.urlencoded({ extended: true }));
 
 
 app.use('/api/product', product);
+app.use('/api/user', require('./routes/user'));
 // route not found
 app.use((req, res) => {
   let responseObj = {
@@ -53,8 +54,11 @@ function clientErrorHandler(err, req, res, next) {
   }
 }
 
+models.Product.belongsTo(models.User, {constraints: true, onDelete: 'CASCADE'});
+models.User.hasMany(models.Product);
+
 let port = process.env.PORT || 8081;
-models.sequelize.sync()
+models.sequelize.sync({force: true})
   .then(res =>{
     console.log(res)
     app.listen(port, () => {
