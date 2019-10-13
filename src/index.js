@@ -53,12 +53,20 @@ function clientErrorHandler(err, req, res, next) {
     next(err);
   }
 }
-
+// product & user associations
 models.Product.belongsTo(models.User, {constraints: true, onDelete: 'CASCADE'});
 models.User.hasMany(models.Product);
 
-let port = process.env.PORT || 8081;
-models.sequelize.sync({force: true})
+// cart & user associations
+models.Cart.belongsTo(models.User, {constraints: true, onDelete: 'CASCADE'});
+models.User.hasOne(models.Cart);
+
+// cart & product associations
+models.Cart.belongsToMany(models.Product, {through: models.CartItem});
+models.Product.belongsToMany(models.Cart, {through: models.CartItem});
+
+let port = process.env.PORT || 8083;
+models.sequelize.sync({force: false})
   .then(res =>{
     console.log(res)
     app.listen(port, () => {

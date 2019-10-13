@@ -6,13 +6,14 @@ const isEmpty = require('lodash/isEmpty');
 
 router.post('/create-product', async (req, res)=>{
   try {
+    // first method ==> req.user.createProduct({newBook}) .. now we dont need to pass the userId
     let newBook = {
       title: req.body.title,
       price: req.body.price,
       imageURL: req.body.imageURL,
       description: req.body.description,
-      userId: req.body.userId
-    }
+      userId: req.body.userId, // or .....req.user.userId
+    };
     let book = await models.Product.create(newBook);
     console.log(book)
 
@@ -25,7 +26,7 @@ router.post('/create-product', async (req, res)=>{
 })
 
 router.get('/', (req, res)=>{
-  models.Product.findAll({}).then(result => res.json(result)).catch(e=>console.log(e));
+  models.Product.findAll({include:['user']}).then(result => res.json(result)).catch(e=>console.log(e));
     //models.Product.findAll()
 });
 
