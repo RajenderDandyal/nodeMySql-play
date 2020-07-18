@@ -18,7 +18,7 @@
   "homepage": "https://github.com/RajenderDandyal/nodesql-play#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "mysql2": "^1.7.0",
     "sequelize": "^5.19.2"
   }
